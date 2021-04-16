@@ -1,0 +1,102 @@
+﻿<Window x:Class="DevDock.AddItemToDock"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevDock"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="Add Item" Height="200" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Width="400" Background="#303030" Foreground="#ffffff">
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="TextBtn">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Border.PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#606060" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#404040" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#505050" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#404040" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Padding" Value="10,5,10,5" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            <DockPanel Background="#202020" Height="30" DockPanel.Dock="Top">
+                <Border PreviewMouseUp="CloseWin" VerticalAlignment="Center" x:Name="CloseWindow"  Margin="0,0,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="30" Padding="0" Background="#404040" Style="{StaticResource TextBtn}" CornerRadius="5">
+                    <TextBlock Margin="0" FontSize="15" VerticalAlignment="Stretch" TextAlignment="Center">X</TextBlock>
+                </Border>
+                <Border Margin="0" PreviewMouseDown="DragWin">
+                    <TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Add Item</TextBlock>
+                </Border>
+            </DockPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Bottom">
+                <Border Padding="30,5,30,5" PreviewMouseUp="OKClick" Background="#404040" Style="{StaticResource TextBtn}" CornerRadius="5">
+                    <TextBlock>OK</TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <DockPanel Margin="0,0,0,5">
+                    <TextBlock VerticalAlignment="Center">
+                Item Name:
+                    </TextBlock>
+                    <TextBox x:Name="tbName" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="260" HorizontalAlignment="Right" >
+
+                    </TextBox>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,5">
+                    <TextBlock VerticalAlignment="Center">
+                    Item Icon:
+                    </TextBlock>
+                    <Image HorizontalAlignment="Right" DockPanel.Dock="Right" x:Name="imgIcon" Width="20" />
+                    <TextBox TextChanged="tbIcon_TextChanged" HorizontalAlignment="Right" DockPanel.Dock="Right" x:Name="tbIcon" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="240"/>
+                </DockPanel>
+                <DockPanel Margin="0,0,0,5">
+                    <TextBlock VerticalAlignment="Center">
+                Item Path:
+                    </TextBlock>
+                    <TextBox x:Name="tbPath" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="260" HorizontalAlignment="Right">
+
+                    </TextBox>
+                </DockPanel>
+            </StackPanel>
+
+        </DockPanel>
+    </Grid>
+</Window>

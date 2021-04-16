@@ -5,41 +5,171 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevDock"
         mc:Ignorable="d"
-        
-        Topmost="True" Title="MainWindow" Height="Auto" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Background="#303030" Width="Auto" WindowStartupLocation="Manual">
+        Foreground="White"
+        Topmost="True" Title="DevDock" Height="Auto" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Background="#303030" Width="Auto" WindowStartupLocation="Manual" BorderBrush="{x:Null}" ContentRendered="Window_ContentRendered" SizeChanged="Window_SizeChanged">
+    <Window.Resources>
+        <Style x:Key="DockBtn" TargetType="Border">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Border.PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#606060" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#303030" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#505050" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#303030" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Border" x:Key="TextBtn">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Border.PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#606060" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#404040" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#505050" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#404040" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    
+                                    Duration="0:0:0.05"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Padding" Value="10,5,10,5" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        <DockPanel>
-            <Rectangle Fill="Transparent" PreviewMouseDown="Grid_PreviewMouseDown" Width="10" DockPanel.Dock="Left"></Rectangle>
-            <Rectangle Fill="Transparent" PreviewMouseDown="Grid_PreviewMouseDown" Width="10" DockPanel.Dock="Right"></Rectangle>
-            <Rectangle Fill="Transparent" PreviewMouseDown="Grid_PreviewMouseDown" Height="10" DockPanel.Dock="Top"></Rectangle>
-            <Rectangle Fill="Transparent" PreviewMouseDown="Grid_PreviewMouseDown" Height="10" DockPanel.Dock="Bottom"></Rectangle>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                <Border BorderBrush="{x:Null}" Background="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75">
-                    <Border.Triggers>
-                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#505050" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    
-                                    Duration="0:0:0.05"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#303030" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    
-                                    Duration="0:0:0.05"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Border.Triggers>
+        <DockPanel x:Name="NotDock" Visibility="Visible">
+            <DockPanel DockPanel.Dock="Top" x:Name="NewItemModal" Visibility="Collapsed">
+                <DockPanel Background="#202020" Height="30" DockPanel.Dock="Top">
+                    <Border PreviewMouseUp="CloseWin" VerticalAlignment="Center" x:Name="CloseWindow"  Margin="0,0,10,0" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="30" Padding="0" Background="#404040" Style="{StaticResource TextBtn}" CornerRadius="5">
+                        <TextBlock Margin="0" FontSize="15" VerticalAlignment="Stretch" TextAlignment="Center">X</TextBlock>
+                    </Border>
+                    <Border Margin="0" PreviewMouseDown="DragWin">
+                        <TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Add Item</TextBlock>
+                    </Border>
+                </DockPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <Border Padding="30,5,30,5" PreviewMouseUp="OKClick" Background="#404040" Style="{StaticResource TextBtn}" CornerRadius="5">
+                        <TextBlock>OK</TextBlock>
+                    </Border>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <DockPanel Margin="0,0,0,5" ToolTip="Provide an item name, that will be shown in menus and hovering over it. If icon is not set, initials of the name will be used instead.">
+                        <TextBlock VerticalAlignment="Center">
+                Item Name:
+                        </TextBlock>
+                        <TextBox x:Name="tbName" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="260" HorizontalAlignment="Right" >
+
+                        </TextBox>
+                    </DockPanel>
+                    <DockPanel Margin="0,0,0,5"  ToolTip="Provide an icon path, whether it be a link to an image or stored locally.">
+                        <TextBlock VerticalAlignment="Center">
+                    Item Icon:
+                        </TextBlock>
+                        <Image Source="pack://application:,,,/Assets/err.png" HorizontalAlignment="Right" DockPanel.Dock="Right" x:Name="imgIcon" Width="20" />
+                        <TextBox TextChanged="tbIcon_TextChanged" HorizontalAlignment="Right" DockPanel.Dock="Right" x:Name="tbIcon" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="240"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,0,0,5"  ToolTip="Provide a path to an executable, URL, etc.">
+                        <TextBlock VerticalAlignment="Center">
+                Item Path:
+                        </TextBlock>
+                        <TextBox x:Name="tbPath" BorderThickness="1" Background="#353535" BorderBrush="#353535" Foreground="White" Margin="5,0,0,0" Width="260" HorizontalAlignment="Right">
+
+                        </TextBox>
+                    </DockPanel>
+                </StackPanel>
+
+            </DockPanel>
+            <StackPanel Background="Transparent" PreviewMouseLeftButtonDown="DragMove" Width="10" DockPanel.Dock="Left"></StackPanel>
+            <StackPanel Background="Transparent" PreviewMouseLeftButtonDown="DragMove" Width="10" DockPanel.Dock="Right"></StackPanel>
+            <StackPanel Background="Transparent" PreviewMouseLeftButtonDown="DragMove" Height="10" DockPanel.Dock="Top"></StackPanel>
+            <StackPanel Background="Transparent" PreviewMouseLeftButtonDown="DragMove" Height="10" DockPanel.Dock="Bottom"></StackPanel>
+            <StackPanel Name="TheDock" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Border PreviewMouseLeftButtonUp="Border_PreviewMouseUp" Style="{StaticResource DockBtn}" BorderBrush="{x:Null}" Background="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75">
+                    <Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem IsCheckable="True" IsChecked="True" Header="Show new item button"></MenuItem>
+                            <Separator />
+                            <MenuItem Header="More...">
+                                <MenuItem Header="About this item"/>
+                                <MenuItem Header="Open file location"/>
+                            </MenuItem>
+                            <MenuItem FontSize="10" Header="DevDock v0.5 Beta" Foreground="#0a0a0a">
+                                
+                            </MenuItem>
+                        </ContextMenu>
+                    </Border.ContextMenu>
                     <Image Height="75" Source="pack://application:,,,/Assets/new.png" />
                 </Border>
             </StackPanel>
+          <!--  <StackPanel Background="Transparent" Visibility="Collapsed" Name="Time" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Foreground="White" Name="TimeContent">00:02 AM</TextBlock>
+            </StackPanel> -->
         </DockPanel>
+        <StackPanel Background="Transparent" Visibility="Collapsed" Name="Time" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Foreground="White" Name="TimeContent">00:02 AM</TextBlock>
+        </StackPanel>
     </Grid>
 </Window>
